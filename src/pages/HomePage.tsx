@@ -1,23 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+
 
 function HomePage() {
+    const navigate = useNavigate();
     const user: string | null = localStorage.getItem('userInfo');
-
-    let userparse: any = null;
+    const [newData, setNewData] = useState<string>('')
+    let userparse: string | null = null;
     if (user !== null) {
-        userparse = JSON.parse(user)
-    }
-    if (userparse !== null) {
-        const data = userparse
-        return (
-            <div><p>HomePage `${data}`</p></div >
-        )
+        try {
+            userparse = JSON.parse(user)
+            const headers = {
+                Authorization: `Bearer ${userparse}`
+            };
+            const profileData = async () => {
+                const newUser = await axios.get('/service/profile',
+                    { headers }
+                )
+                setNewData(newUser.data.message[0].first_name);
+
+            }
+            profileData()
+        }
+        catch (error) {
+            navigate('login')
+        }
     }
     else {
-        return (
-            <div><p>HomePage</p></div >
-        )
+        navigate('login')
     }
+
+    return (
+        <div><p>Welcome to HomePage {newData}</p></div >
+    )
 
 }
 

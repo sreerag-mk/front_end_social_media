@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    gap: 30px;
+    background: #1d2b3a;
+}
+
+.signupForm {
+    position: absolute;
+    width: 100%;
+    inset: 2px;
+    border-radius: 8px;
+    z-index: 10;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.signupForm h2 {
+    color: #45f3ff;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+
+.inputBox {
+    position: relative;
+    width: 250px;
+    margin: 20px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: #1d2b3a;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    transition: 0.5s;
+
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+    transition: 0.5s;
+
+}
+
+.inputBox input:valid~span,
+.inputBox input:focus~span {
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    background: #1d2b3a;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+    letter-spacing: 0.2em;
+}
+
+
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid #00dfc4;
+}
+
+input[type="date"] {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.gender {
+    display: flex;
+}
+
+
+.insideGender {
+    width: 125px;
+}
+
+.insideGender span+input[type="radio"]:checked {
+    color: #00dfc4;
+}
+
+.insideGender label {
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.25);
+    transition: 0.5s;
+    border-radius: 6px;
+    font-size: 0.65em;
+    padding: 0 10px;
+}
+
+input[type="radio"]:checked+label {
+    padding: 10px;
+    font-size: 1em;
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    letter-spacing: 0.2em;
+}
+
+input[type="radio"] {
+    display: hidden;
+}

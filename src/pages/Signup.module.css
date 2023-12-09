@@ -1,10 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+.outerSignup {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,20 +6,73 @@ body {
     flex-direction: column;
     gap: 30px;
     background: #1d2b3a;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.signupBox {
+    position: relative;
+    width: 380px;
+    height: 57em;
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+
+}
+
+.signupBox::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+
+    width: 380px;
+    height: 57em;
+    background: linear-gradient(0deg, transparent, #45f3ff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: 3s;
+
+}
+
+.signupBox::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+
+    width: 380px;
+    height: 57em;
+    background: linear-gradient(0deg, transparent, #45f3ff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
 }
 
 .signupForm {
     position: absolute;
-    width: 100%;
     inset: 2px;
     border-radius: 8px;
+    background: #28292d;
     z-index: 10;
-    padding: 50px 40px;
+    padding: 10px 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
 }
+
+
 
 .signupForm h2 {
     color: #45f3ff;
@@ -57,6 +104,7 @@ body {
 .inputBox span {
     position: absolute;
     left: 0;
+    top: 0;
     padding: 10px;
     pointer-events: none;
     font-size: 1em;
@@ -84,7 +132,7 @@ body {
     border: 1px solid #00dfc4;
 }
 
-input[type="date"] {
+.inputBox input[type="date"] {
     color: rgba(255, 255, 255, 0.25);
 }
 
@@ -110,7 +158,7 @@ input[type="date"] {
     padding: 0 10px;
 }
 
-input[type="radio"]:checked+label {
+.signupForm input[type="radio"]:checked+label {
     padding: 10px;
     font-size: 1em;
     color: #00dfc4;
@@ -118,6 +166,37 @@ input[type="radio"]:checked+label {
     letter-spacing: 0.2em;
 }
 
-input[type="radio"] {
-    display: hidden;
+
+.loginLinks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.loginLinks a,
+p {
+    margin: 10px 0;
+    font-size: 0.75em;
+    color: #8f8f8f;
+    text-decoration: none;
+}
+
+.signupForm input[type="submit"] {
+    border: none;
+    outline: none;
+    background: #45f3ff;
+    padding: 11px 25px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loginLinks a:hover,
+.loginLinks a:nth-child(2) {
+    color: #45f3ff;
+
+}
+
+.insideGender input[type="radio"] {
+    position: relative;
+    right: 5px;
 }

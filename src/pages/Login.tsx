@@ -1,61 +1,85 @@
 import React, { useState } from 'react'
-import './Login.css'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import loginStyles from './Login.module.css'
+import useAuth from '../hooks/useAuth'
+import axios from '../api/axios'
 
 
-function Login() {
+const loginUrl = '/auth/login'
+
+const Login = () => {
+
+    const { setAuth } = useAuth();
+    const { auth } = useAuth();
+    console.log('this is object')
     type UserInfoType = {
         name: string;
         password: string;
     };
     const [userInfo, setUserInfo] = useState<UserInfoType>({ name: '', password: '' })
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<null | string>(null);
+    const [show, setShow] = useState<boolean>(false)
+    const handleClick = () => {
+        setShow(!show)
+    }
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        const datas = await axios.post('/auth/login', { username: userInfo.name, password: userInfo.password })
-        if (datas.data.success === true) {
-            localStorage.setItem('userInfo', JSON.stringify(datas.data.token))
+        try {
+            const { data } = await axios.post(loginUrl, { username: userInfo.name, password: userInfo.password })
+            localStorage.setItem('userInfo', JSON.stringify(data.token))
+            const accessToken = data.token
+            const username = userInfo.name
+            const password = userInfo.password
+            console.log(username)
+            console.log(password)
+            console.log(accessToken)
+            setAuth({ username, password, accessToken })
+            console.log(auth)
             navigate('/home')
         }
-        else {
-            setError(datas.data.message)
+        catch (loginError) {
+            setError('error at login')
         }
     }
     return (
-        <div className="loginBox">
-            <form className="loginForm" onSubmit={handleLogin}>
-                {error && <p className='errorMessage'>{error}</p>}
-                <h2>Login</h2>
-                <div className="loginInputBox">
-                    <input type="text"
-                        value={userInfo.name}
-                        onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
-                        required={true}
-                    ></input>
-                    <span>Username</span>
-                    <i></i>
+        <div className={loginStyles.outerLogin}>
 
-                </div>
-                <div className="loginInputBox">
-                    <input type="password"
-                        value={userInfo.password}
-                        onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })}
-                        required={true}
-                    ></input>
-                    <span>Password</span>
-                    <i></i>
+            <div className={loginStyles.loginBox}>
+                <form className={loginStyles.loginForm} onSubmit={handleLogin}>
+                    {error && <p className={loginStyles.errorMessage}>{error}</p>}
+                    <h2>Login</h2>
+                    <div className={loginStyles.loginInputBox}>
+                        <input type={loginStyles.text}
+                            value={userInfo.name}
+                            onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                            required={true}
+                        ></input>
+                        <span>Username</span>
+                        <i></i>
 
-                </div>
-                <div className="loginLinks">
-                    <a href='http://localhost:3000/home'>Forgot Password</a>
-                    <a href='http://localhost:3000/home'>Sign up</a>
-                </div>
-                <input type="submit" value="Login"></input>
-            </form>
+                    </div>
+                    <div className={loginStyles.loginInputBox}>
+                        <input type={show ? 'text' : 'password'}
+                            value={userInfo.password}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserInfo({ ...userInfo, password: e.target.value })}
+                            required={true}
+                        >
+                        </input>
+                        <span>Password</span>
+                        <p className={loginStyles.show} onClick={handleClick} onKeyDown={handleClick} >{show ? "Hide" : "Show"}</p>
+                        <i></i>
+                    </div>
+                    <div className={loginStyles.loginLinks}>
+                        <Link to="/home">Forgot password</Link>
+                        <Link to="/signup">Sign up</Link>
+                    </div>
+                    <input className={loginStyles.loginInput} type="submit" value="Login"></input>
+                </form>
+            </div >
         </div>
     )
 }
 
 export default Login
+

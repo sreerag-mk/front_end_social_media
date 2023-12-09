@@ -1,4 +1,4 @@
-body {
+.outerLogin {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +151,7 @@ body {
 
 }
 
-input[type="submit"] {
+.loginBox input[type="submit"] {
     border: none;
     outline: none;
     background: #45f3ff;
@@ -163,10 +163,23 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:active {
+.loginBox input[type="submit"]:active {
     opacity: 0.8;
 }
 
 .errorMessage {
     color: red;
+}
+
+.show {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #8f8f8f;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    background: transparent;
+    border: 0;
+    z-index: 100;
+
 }

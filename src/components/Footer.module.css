@@ -1,0 +1,21 @@
+.footerMain {
+    background-color: black;
+    min-height: 20vh;
+    color: #45f3ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.name {
+    height: 40%;
+}
+
+.detail {
+    height: 30%;
+}
+
+.copyright {
+    height: 30%;
+}

@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                         const newUser = await axios.get('/service/profile', { headers });
                         const newUsername = newUser.data.message[0].user_name;
                         setAuth(prevAuth => ({ ...prevAuth, username: newUsername }));
+                        console.log(auth)
                     } catch (error) {
                         console.log('Error fetching profile data:', error);
                     }

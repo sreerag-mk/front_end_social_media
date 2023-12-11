@@ -27,16 +27,22 @@ const Login = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(loginUrl, { username: userInfo.name, password: userInfo.password })
-            localStorage.setItem('userInfo', JSON.stringify(data.token))
-            const accessToken = data.token
-            const username = userInfo.name
-            const password = userInfo.password
-            console.log(username)
-            console.log(password)
-            console.log(accessToken)
-            setAuth({ username, password, accessToken })
-            console.log(auth)
-            navigate('/home')
+            console.log('the data is')
+            console.log(data)
+            if (data.success === true) {
+                localStorage.setItem('userInfo', JSON.stringify(data.token))
+                const accessToken = data.token
+                const username = userInfo.name
+                const password = userInfo.password
+                console.log(username)
+                console.log(password)
+                console.log(accessToken)
+                setAuth({ username, password, accessToken })
+                console.log(auth)
+                navigate('/home')
+            } else {
+                setError(data.message)
+            }
         }
         catch (loginError) {
             setError('error at login')

@@ -1,7 +1,7 @@
 import React from 'react'
 import footer from './Footer.module.css'
 
-const Footer = () => {
+function Footer() {
     return (
         <div className={footer.footerMain}>
             <div className={footer.name}>RAG media</div>

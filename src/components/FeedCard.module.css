@@ -1,0 +1,72 @@
+.main {
+    margin: auto;
+    padding: 20px;
+    max-width: 60%;
+    max-height: 800px;
+    color: black;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    height: 50px;
+}
+
+.username {
+    display: flex;
+}
+
+.data img {
+
+    width: 60%
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.totalLikes {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.comments {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.like img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.save img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

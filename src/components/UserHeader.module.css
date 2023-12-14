@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+
 .header {
     display: flex;
     height: 10vh;
-    background: black;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+    background-color: white;
 }
 
 .navigationlist {
@@ -29,25 +34,97 @@
     display: flex;
     position: relative;
     list-style: none;
-    width: 70px;
     height: 70px;
     z-index: 1;
 }
 
 
 .navigation ul li a {
-    color: #45f3ff;
+    color: #5f6368;
     text-decoration: none;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
     text-align: center;
-    font-weight: 300;
 }
 
 .navigation ul li a:hover {
+    color: #45f3ff;
+}
+
+
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.userDetail {
+    color: #5f6368;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.userShowing {
+    margin-right: 20px;
+}
+
+.userName {
     color: #FF5F1F;
+    letter-spacing: 3px;
+}
+
+.logout:hover {
+    color: red;
+}
+
+
+
+
+
+.form {
+    width: 100%;
+    height: 20px;
+    max-width: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 20px;
+}
+
+.form input {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    border-radius: 60px;
+    padding: 10px 20px;
+    font-size: 10px;
+    backdrop-filter: blur(4px) saturate(180%);
+    z-index: 10000;
+}
+
+.form button img {
+    width: 15px;
+
+}
+
+.form button {
+    border: 0;
+    width: 30px;
+    height: 27px;
+    background: #ffbc00;
+    border-radius: 60px;
+    cursor: pointer;
 }

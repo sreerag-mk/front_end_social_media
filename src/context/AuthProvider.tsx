@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -13,6 +14,7 @@ interface AuthContextType {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const navigate = useNavigate();
     const [auth, setAuth] = useState<Auth>({ username: '' });
 
     useEffect(() => {
@@ -30,16 +32,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     try {
                         const newUser = await axios.get('/service/profile', { headers });
                         const newUsername = newUser.data.message[0].user_name;
-                        setAuth(prevAuth => ({ ...prevAuth, username: newUsername }));
-                        console.log(auth)
+                        setAuth(({ username: newUsername }));
                     } catch (error) {
-                        console.log('Error fetching profile data:', error);
+                        navigate('/login')
                     }
                 };
 
                 fetchData();
             } catch (error) {
-                console.log('Error parsing user data:', error);
+                console.log('login error at second')
             }
         } else {
             console.log("No user info found");

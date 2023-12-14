@@ -10,8 +10,6 @@ const loginUrl = '/auth/login'
 const Login = () => {
 
     const { setAuth } = useAuth();
-    const { auth } = useAuth();
-    console.log('this is object')
     type UserInfoType = {
         name: string;
         password: string;
@@ -27,19 +25,13 @@ const Login = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post(loginUrl, { username: userInfo.name, password: userInfo.password })
-            console.log('the data is')
-            console.log(data)
             if (data.success === true) {
                 localStorage.setItem('userInfo', JSON.stringify(data.token))
                 const accessToken = data.token
                 const username = userInfo.name
                 const password = userInfo.password
-                console.log(username)
-                console.log(password)
-                console.log(accessToken)
                 setAuth({ username, password, accessToken })
-                console.log(auth)
-                navigate('/home')
+                navigate('/')
             } else {
                 setError(data.message)
             }
@@ -77,7 +69,7 @@ const Login = () => {
                         <i></i>
                     </div>
                     <div className={loginStyles.loginLinks}>
-                        <Link to="/home">Forgot password</Link>
+                        <Link to="/">Forgot password</Link>
                         <Link to="/signup">Sign up</Link>
                     </div>
                     <input className={loginStyles.loginInput} type="submit" value="Login"></input>

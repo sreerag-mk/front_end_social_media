@@ -8,7 +8,6 @@ const signinUrl = '/auth/signup'
 
 const Signup = () => {
     const { setAuth } = useAuth();
-    const { auth } = useAuth();
     type signinUserInfoType = {
         first_name: string;
         last_name: string;
@@ -29,7 +28,6 @@ const Signup = () => {
             if (userInfo.password === userInfo.confirm_password) {
 
                 const { data } = await axios.post(signinUrl, { first_name: userInfo.first_name, last_name: userInfo.last_name, user_name: userInfo.user_name, address: userInfo.address, phone_number: userInfo.phone_number, dob: userInfo.date_of_birth, password: userInfo.password, gender: userInfo.gender })
-                console.log(data)
                 if (data.success === true) {
                     const loginDatas = await axios.post('/auth/login', { username: userInfo.user_name, password: userInfo.password })
                     if (loginDatas.data.success === true) {
@@ -37,12 +35,8 @@ const Signup = () => {
                         const accessToken = data.token
                         const username = userInfo.user_name
                         const password = userInfo.password
-                        console.log(username)
-                        console.log(password)
-                        console.log(accessToken)
                         setAuth({ username, password, accessToken })
-                        console.log(auth)
-                        navigate('/home')
+                        navigate('/')
                     }
                 }
                 else {

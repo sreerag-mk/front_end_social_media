@@ -1,5 +1,5 @@
 import useAuth from '../hooks/useAuth'
-import './page.css'
+// import './page.css'
 
 
 function Photo() {

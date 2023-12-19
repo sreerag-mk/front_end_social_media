@@ -1,0 +1,83 @@
+.main {
+    margin: auto;
+    padding: 0px 20px;
+    max-height: 800px;
+    color: black;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+}
+
+.username {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    gap: 10px;
+}
+
+.username img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    object-fit: cover;
+
+}
+
+.data img {
+    width: 100%;
+    background-color: #cccccc;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.like {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.totalLikes {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 20px;
+}
+
+.comments {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.like img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.save img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

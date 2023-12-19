@@ -1,11 +1,10 @@
 .main {
     margin: auto;
-    padding: 20px;
-    max-width: 60%;
+    padding: 0px 20px;
     max-height: 800px;
     color: black;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 10px;
     background-color: white;
     border-radius: 10px;
 }
@@ -15,22 +14,34 @@
     justify-content: space-between;
     align-items: center;
     color: black;
-    height: 50px;
 }
 
 .username {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    gap: 10px;
+}
+
+.username img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    object-fit: cover;
+
 }
 
 .data img {
-
-    width: 60%
+    width: 100%;
+    background-color: #cccccc;
 }
 
 .details {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0px;
 }
 
 .like {
@@ -49,7 +60,7 @@
 .content {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 5px;
+    padding-bottom: 20px;
 }
 
 .comments {

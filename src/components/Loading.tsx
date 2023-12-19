@@ -1,8 +1,9 @@
-import React from 'react'
+
 import Load from './Loading.module.css'
 
 const Loading = () => {
     return (
+
         <div className={Load.main}><span className={Load.loader}></span></div>
     )
 }

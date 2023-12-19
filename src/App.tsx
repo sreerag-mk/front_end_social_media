@@ -5,10 +5,10 @@ import HomePage from './pages/HomePage';
 import Signup from './pages/Signup';
 import Layout from './components/Layout';
 import Login from './pages/Login';
-import Profile from './components/Profile';
-import Message from './components/Message';
-import Photo from './components/Photo';
-import Settings from './components/Settings';
+import Profile from './pages/Profile';
+import Message from './pages/Message';
+import Photo from './pages/Photo';
+import Settings from './pages/Settings';
 
 
 function App() {

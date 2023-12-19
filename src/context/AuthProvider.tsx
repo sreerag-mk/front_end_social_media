@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 interface Auth {
-    username: string;
+    data: {};
 }
 
 interface AuthContextType {
@@ -15,33 +15,25 @@ interface AuthContextType {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
-    const [auth, setAuth] = useState<Auth>({ username: '' });
+    const [auth, setAuth] = useState<Auth>({ data: {} });
 
     useEffect(() => {
         const user: string | null = localStorage.getItem('userInfo');
-        let userparse: string | null = null;
 
         if (user !== null) {
-            try {
-                userparse = JSON.parse(user);
-                const headers = {
-                    Authorization: `Bearer ${userparse}`
-                };
 
-                const fetchData = async () => {
-                    try {
-                        const newUser = await axios.get('/service/profile', { headers });
-                        const newUsername = newUser.data.message[0].user_name;
-                        setAuth(({ username: newUsername }));
-                    } catch (error) {
-                        navigate('/login')
-                    }
-                };
+            const fetchData = async () => {
+                try {
+                    const newUser = await axios.get('/service/profile');
+                    const newData = newUser.data.message[0];
+                    setAuth(({ data: newData }));
+                } catch (error) {
+                    navigate('/login')
+                }
+            };
 
-                fetchData();
-            } catch (error) {
-                console.log('login error at second')
-            }
+            fetchData();
+
         } else {
             console.log("No user info found");
         }

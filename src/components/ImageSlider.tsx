@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import imageStyle from './ImageSlider.module.css'
 
 const ImageSlider = ({ images }) => {
@@ -16,13 +16,17 @@ const ImageSlider = ({ images }) => {
 
     return (
         <div className={imageStyle.slider}>
-            {(image) !== 0 && (
-                <button className={imageStyle.previous} onClick={prevSlide}>previous</button>
-            )}
+            <div className={imageStyle.previous}>
+                {(image) !== 0 && (
+                    <i className="fa-solid fa-chevron-left fa-fade fa-2xl" onClick={prevSlide} onKeyUp={() => console.log('key is up')}></i>
+                )}
+            </div>
             <img src={images[image]} alt={``} />
-            {(image + 1) !== images.length && (
-                <button className={imageStyle.next} onClick={nextSlide}>Next</button>
-            )}
+            <div className={imageStyle.next}>
+                {(image + 1) !== images.length && (
+                    <i className="fa-solid fa-chevron-right fa-fade fa-2xl" onClick={nextSlide} onKeyUp={() => console.log('key is up')}></i>
+                )}
+            </div>
         </div>
     );
 };

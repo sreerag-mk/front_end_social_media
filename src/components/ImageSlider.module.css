@@ -1,5 +1,11 @@
 .slider img {
     width: 100%;
     max-height: 600px;
-    object-fit: contain;
+    object-fit: cover;
+}
+
+.slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

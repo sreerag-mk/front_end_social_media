@@ -1,74 +1,91 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import headerStyles from './UserHeader.module.css'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { fetchProfile } from '../redux/slices/profile/ProfileData'
+import Loading from './Loading'
 
 const UserHeader: React.FC = () => {
     const [search, setSearch] = useState<string>('')
-    const { auth } = useAuth();
+    const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.clear();
+        try {
+            localStorage.clear();
+            console.log('loged out')
+            navigate('/login');
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
+
+    const dispatch = useAppDispatch()
+    const dataState = useAppSelector((state) => state.profile.data);
+    const isLoadingState = useAppSelector((state) => state.profile.isLoading);
+    console.log('the state is')
+    console.log(dataState)
+    useEffect(() => {
+        dispatch(fetchProfile())
+    }, [])
+    if (isLoadingState) {
+        return <Loading />
     }
     return (
+
+
         <div className={headerStyles.header}>
-            <div className={headerStyles.navigation}>
-                <ul className={headerStyles.navigationlist}>
-                    <li className={`${headerStyles.list} ${headerStyles.active}`} >
-                        <Link to="/">
-                            <span className={headerStyles.text}>Home</span>
-                        </Link>
-                    </li>
-                    <li className={headerStyles.list} >
-                        <Link to="/profile">
-                            <span className={headerStyles.text}>Profile</span>
-                        </Link>
-                    </li>
-                    <li className={headerStyles.list}>
-                        <Link to="/message">
-                            <span className={headerStyles.text}>Message</span>
-                        </Link>
-                    </li>
-                    <li className={headerStyles.list}>
-                        <Link to="/photo">
-                            <span className={headerStyles.text}>Photos</span>
-                        </Link>
-                    </li>
-                    <li className={headerStyles.list}>
-                        <Link to="/settings">
-                            <span className={headerStyles.text}>Settings</span>
-                        </Link>
-                    </li>
-                </ul>
-                <section className={headerStyles.form1}>
-                    <form className={headerStyles.form}>
-                        <input type={headerStyles.forminside}
-                            placeholder="search anything"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            required={true}
-                        ></input>
-                        <button type="submit" className={headerStyles.forminside}>
-                            <img
-                                src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="" /></button>
-                    </form>
+            {dataState &&
+                <><div className={headerStyles.name}>
+                    <h1 className={headerStyles.nameh1}>KnowMe.</h1>
 
-                </section>
-                <ul>
-                    <div className={headerStyles.login}>
-                        <li className={`${headerStyles.list} ${headerStyles.login} ${headerStyles.userShowing}`}>
-                            <h3 className={`${headerStyles.icon} ${headerStyles.userDetail}`}>Hi,</h3> <h3 className={`${headerStyles.icon} ${headerStyles.userDetail} ${headerStyles.userName} `}> {auth.username}</h3>
-                        </li>
-                        <li className={`${headerStyles.list} ${headerStyles.login}`}>
-                            <Link onClick={handleLogout} to="/login">
-                                <span className={`${headerStyles.text} ${headerStyles.userShowing} ${headerStyles.logout}`} >logout</span>
-                            </Link>
-                        </li>
+                </div><div className={headerStyles.nav}>
+                        <div className={headerStyles.navigation}>
+                            <div className={headerStyles.homeIcon}>
+                                <i className="fa-solid fa-house"></i>
+                            </div>
+                            <div className={headerStyles.exploreIcon}>
+                                <i className="fa-solid fa-compass"></i>
+                            </div>
+                            <div className={headerStyles.messageIcon}>
+                                <i className="fa-solid fa-message"></i>
+                            </div>
+                            <div className={headerStyles.heartIcon}>
+                                <i className="fa-solid fa-heart"></i>
+                            </div>
+                        </div>
+                        <div className={headerStyles.search}>
+                            <form className={headerStyles.form}>
+                                <input type="text"
+                                    placeholder='Search'
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    required={true} />
+                                <button type="submit" className={headerStyles.forminside}>
+                                    <img
+                                        src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="" /></button>
+                            </form>
+                        </div>
+                    </div><div className={headerStyles.profile}>
+                        <div className={headerStyles.profileIcons}>
+                            <div className={headerStyles.saved}>
+                                <i className="fa-solid fa-bookmark"></i>
+                            </div>
+                            <div className={headerStyles.notification}>
+                                <i className="fa-solid fa-bell"></i>
 
-                    </div>
-                </ul>
+                            </div>
+                        </div>
+                        <div className={headerStyles.userDetail}>
+                            <div className={headerStyles.username}>
+                                <img src={dataState.profile_picture} alt="" />
+                                <h5>{dataState.user_name}</h5>
+                            </div>
+                            <i className="fa-solid fa-caret-down" onClick={handleLogout} onKeyUp={() => console.log('key is up')}></i>
 
-            </div>
-        </div>
+                        </div>
+                    </div></>
+            }
+        </div >
     )
 }
 

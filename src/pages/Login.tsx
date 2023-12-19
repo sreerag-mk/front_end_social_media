@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import loginStyles from './Login.module.css'
-import useAuth from '../hooks/useAuth'
 import axios from '../api/axios'
 
 
@@ -9,7 +8,6 @@ const loginUrl = '/auth/login'
 
 const Login = () => {
 
-    const { setAuth } = useAuth();
     type UserInfoType = {
         name: string;
         password: string;
@@ -27,11 +25,12 @@ const Login = () => {
             const { data } = await axios.post(loginUrl, { username: userInfo.name, password: userInfo.password })
             if (data.success === true) {
                 localStorage.setItem('userInfo', JSON.stringify(data.token))
-                const accessToken = data.token
-                const username = userInfo.name
-                const password = userInfo.password
-                setAuth({ username, password, accessToken })
+                const accessToken = await data.token
+                console.log('access token ?')
+                console.log(accessToken)
+
                 navigate('/')
+                window.location.reload(false)
             } else {
                 setError(data.message)
             }

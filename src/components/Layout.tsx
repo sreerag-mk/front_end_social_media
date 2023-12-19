@@ -1,0 +1,49 @@
+import { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import UserHeader from './UserHeader';
+import Footer from './Footer';
+import layoutStyle from './Layout.module.css'
+import Details from './Details';
+import Profile from './Profile';
+import Loading from './Loading';
+
+
+
+function Layout() {
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2500)
+    })
+    if (isLoading) {
+
+        return <Loading />
+    } else {
+        return (
+            <div className={layoutStyle.main}>
+                <div className={layoutStyle.header}>
+                    <UserHeader />
+                </div>
+                <div className={layoutStyle.body}>
+                    <div className={layoutStyle.left}>
+                        <Details heading={'My Group'} />
+                        <Details heading={'Friends'} />
+                    </div>
+                    <div className={layoutStyle.middle}>
+                        <Outlet />
+                    </div>
+                    <div className={layoutStyle.right}>
+                        <Profile />
+                    </div>
+                </div>
+                <div className={layoutStyle.footer}>
+                    <Footer />
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Layout

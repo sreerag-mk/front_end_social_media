@@ -1,19 +1,14 @@
 import axios from 'axios';
 
-const user: string | null = localStorage.getItem('userInfo');
-let userparse: string | null = null;
-userparse = JSON.parse(user);
-const headers = {
-    'Authorization': `Bearer ${userparse}`
-};
-
-console.log('the headers are ____________________________________________________________')
-console.log(headers)
-
 const instance = axios.create({
-    baseURL: 'http://localhost:5000',
-    headers: headers
+    baseURL: 'http://localhost:5000'
 });
+
+instance.interceptors.request.use(async req => {
+    const auth = JSON.parse(localStorage.getItem('userInfo') ?? '{ }')
+    req.headers.Authorization = `Bearer ${auth}`
+    return req
+})
 
 
 

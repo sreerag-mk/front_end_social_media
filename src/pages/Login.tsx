@@ -30,7 +30,7 @@ const Login = () => {
                 console.log(accessToken)
 
                 navigate('/')
-                window.location.reload(false)
+                // window.location.reload(false)
             } else {
                 setError(data.message)
             }

@@ -4,6 +4,7 @@ import UserHeader from './UserHeader';
 import Footer from './Footer';
 import layoutStyle from './Layout.module.css'
 import Details from './Details';
+import withAuth from '../HOC/WithAuth';
 import Profile from './Profile';
 
 
@@ -33,4 +34,4 @@ function Layout() {
     )
 }
 
-export default Layout
+export default withAuth(Layout)

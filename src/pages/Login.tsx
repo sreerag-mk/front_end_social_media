@@ -4,10 +4,10 @@ import loginStyles from './Login.module.css'
 import axios from '../api/axios'
 
 
-const loginUrl = '/auth/login'
+const loginUrl = process.env.REACT_APP_LOGIN
 
 const Login = () => {
-
+    localStorage.clear();
     type UserInfoType = {
         name: string;
         password: string;
@@ -22,20 +22,19 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            console.log('start')
             const { data } = await axios.post(loginUrl, { username: userInfo.name, password: userInfo.password })
+            console.log('end')
+            console.log(data)
             if (data.success === true) {
                 localStorage.setItem('userInfo', JSON.stringify(data.token))
-                const accessToken = await data.token
-                console.log('access token ?')
-                console.log(accessToken)
-
                 navigate('/')
-                // window.location.reload(false)
             } else {
                 setError(data.message)
             }
         }
         catch (loginError) {
+            console.log(loginError)
             setError('error at login')
         }
     }

@@ -5,8 +5,9 @@ import HomeStyle from '../components/Homepage.module.css'
 import '../components/container.css'
 import axios from '../api/axios';
 import FeedCard from '../components/FeedCard';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-const loginUrl = '/service/getfeed'
+const getFeedUrl = process.env.REACT_APP_GETFEED
 
 function HomePage() {
     const [feed, setFeed] = useState([]);
@@ -16,9 +17,8 @@ function HomePage() {
         size: size
     }
 
-
     async function Feeds() {
-        const { data } = await axios.get(loginUrl, {
+        const { data } = await axios.get(getFeedUrl, {
             params: sendData
         })
         const feedDetail = data.message
@@ -27,16 +27,22 @@ function HomePage() {
     useEffect(() => {
         Feeds()
     }, [size])
-    function handleButtonClick() {
+    const fetchMoreData = () => {
         setSize(size + 3)
     }
     return (
         <div className={`${HomeStyle.container} ${HomeStyle.main}`}>
+            <InfiniteScroll
+                dataLength={feed.length}
+                next={fetchMoreData}
+                hasMore={true}
+                loader={<h4>loading....</h4>}
+            >
+                {feed.map(feeds => (
+                    <FeedCard key={feeds.id} feed={feeds} />
+                ))}
+            </InfiniteScroll>
 
-            {feed.map(feeds => (
-                <FeedCard key={feeds.id} feed={feeds} />
-            ))}
-            <button className={HomeStyle.button} onClick={handleButtonClick}>Load more</button>
         </div >
     )
 }

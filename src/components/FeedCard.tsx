@@ -8,7 +8,7 @@ import comment from '../icons/chat.png'
 import save from '../icons/save-instagram.png'
 
 
-const FeedCard = (props: { feed: { media_url: string; id: number; profile_picture: string; user_name: string; caption: string | number | boolean } }) => {
+const FeedCard = (props: { feed: { media_url: string; id: number; profile_picture: string; user_name: string; caption: string | number } }) => {
     const [likeCountState, setLikeCountState] = useState()
     const [like, setLike] = useState(false)
     const url = JSON.parse(props.feed.media_url)
@@ -19,7 +19,7 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
     async function handleLike() {
         console.log('clicked like')
         console.log(props.feed.id)
-        const { data } = await axios.post('/like/like', sendType)
+        const { data } = await axios.post(process.env.REACT_APP_LIKE, sendType)
         setLike(data.liked)
         console.log(sendType)
         console.log(like)
@@ -28,7 +28,7 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
 
     async function likeCount() {
         console.log('inside the like count')
-        const { data } = await axios.get('/like/likecount', {
+        const { data } = await axios.get(process.env.REACT_APP_LIKECOUNT, {
             params: sendType,
         })
         setLikeCountState(data.message)
@@ -40,7 +40,7 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
         const sendData = {
             type: 'post'
         }
-        const { data } = await axios.get('/like/userLiked', {
+        const { data } = await axios.get(process.env.REACT_APP_USERLIKED, {
             params: sendData,
         })
         console.log(data.message)

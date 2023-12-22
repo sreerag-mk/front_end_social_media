@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
-import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -14,7 +13,6 @@ interface AuthContextType {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const navigate = useNavigate();
     const [auth, setAuth] = useState<Auth>({ data: {} });
 
     useEffect(() => {
@@ -24,11 +22,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             const fetchData = async () => {
                 try {
-                    const newUser = await axios.get('/service/profile');
+                    const newUser = await axios.get(process.env.REACT_APP_FEEDS);
                     const newData = newUser.data.message[0];
                     setAuth(({ data: newData }));
                 } catch (error) {
-                    navigate('/login')
+                    // navigate('/login')
                 }
             };
 

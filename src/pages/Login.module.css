@@ -37,7 +37,6 @@
     position: absolute;
     top: -50%;
     left: -50%;
-
     width: 380px;
     height: 420px;
     background: linear-gradient(0deg, transparent, #45f3ff);
@@ -92,6 +91,7 @@
     font-size: 1em;
     letter-spacing: 0.05em;
     z-index: 10;
+    padding-left: 10px;
 
 }
 

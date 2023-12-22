@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import headerStyles from './UserHeader.module.css'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { fetchProfile } from '../redux/slices/profile/ProfileData'
 import Loading from './Loading'
+import axios from '../api/axios'
 
 const UserHeader: React.FC = () => {
     const [search, setSearch] = useState<string>('')
@@ -17,13 +18,23 @@ const UserHeader: React.FC = () => {
             console.error('Logout error:', error);
         }
     };
+    const handleSearchBtnClick = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(search)
+        const sendType = {
+            user_name: search
+        }
+        const { data } = await axios.get(process.env.REACT_APP_SEARCH, {
+            params: sendType
+        })
+        navigate('/search')
+        console.log(data.message)
+    }
 
 
     const dispatch = useAppDispatch()
     const dataState = useAppSelector((state) => state.profile.data);
     const isLoadingState = useAppSelector((state) => state.profile.isLoading);
-    console.log('the state is')
-    console.log(dataState)
     useEffect(() => {
         dispatch(fetchProfile())
     }, [])
@@ -41,16 +52,27 @@ const UserHeader: React.FC = () => {
                 </div><div className={headerStyles.nav}>
                         <div className={headerStyles.navigation}>
                             <div className={headerStyles.homeIcon}>
-                                <i className="fa-solid fa-house"></i>
+                                <Link to={'/'} >
+                                    < i className="fa-solid fa-house" ></i>
+                                </Link>
                             </div>
                             <div className={headerStyles.exploreIcon}>
-                                <i className="fa-solid fa-compass"></i>
+                                <Link to={'/profile'} >
+
+                                    <i className="fa-solid fa-compass"></i>
+                                </Link>
                             </div>
                             <div className={headerStyles.messageIcon}>
-                                <i className="fa-solid fa-message"></i>
+                                <Link to={'/message'} >
+
+                                    <i className="fa-solid fa-message"></i>
+                                </Link>
                             </div>
                             <div className={headerStyles.heartIcon}>
-                                <i className="fa-solid fa-heart"></i>
+                                <Link to={'/settings'} >
+
+                                    <i className="fa-solid fa-heart"></i>
+                                </Link>
                             </div>
                         </div>
                         <div className={headerStyles.search}>
@@ -62,7 +84,7 @@ const UserHeader: React.FC = () => {
                                     required={true} />
                                 <button type="submit" className={headerStyles.forminside}>
                                     <img
-                                        src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="" /></button>
+                                        src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="" onClick={handleSearchBtnClick} onKeyUp={handleSearchBtnClick} /></button>
                             </form>
                         </div>
                     </div><div className={headerStyles.profile}>

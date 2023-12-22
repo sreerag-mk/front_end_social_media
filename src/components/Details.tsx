@@ -2,7 +2,7 @@
 import detailsStyle from './Details.module.css'
 import Data from './Data'
 
-const Details = (heading: { heading: string }) => {
+const Details = (heading: { heading: string | null }) => {
     return (
 
 

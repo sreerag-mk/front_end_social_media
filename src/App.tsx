@@ -1,6 +1,5 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import RequireAuth from './components/RequireAuth';
 import HomePage from './pages/HomePage';
 import Signup from './pages/Signup';
 import Layout from './components/Layout';
@@ -9,6 +8,8 @@ import Profile from './pages/Profile';
 import Message from './pages/Message';
 import Photo from './pages/Photo';
 import Settings from './pages/Settings';
+import Search from './pages/Search';
+
 
 
 function App() {
@@ -21,14 +22,13 @@ function App() {
         <Route path='/' element={<Layout />}>
 
 
+          <Route path='/' element={<HomePage />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/message' element={<Message />} />
+          <Route path='/photo' element={<Photo />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/search' element={<Search />} />
 
-          <Route element={<RequireAuth />}>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/message' element={<Message />} />
-            <Route path='/photo' element={<Photo />} />
-            <Route path='/settings' element={<Settings />} />
-          </Route>
 
         </Route>
       </Routes>

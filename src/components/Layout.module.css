@@ -1,0 +1,24 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.left {
+    width: 25%;
+    padding: 10px;
+    left: 0;
+
+}
+
+
+.middle {
+    width: 50%;
+    height: 100%;
+}
+
+.right {
+    width: 25%;
+    height: 100%;
+    padding: 10px;
+}

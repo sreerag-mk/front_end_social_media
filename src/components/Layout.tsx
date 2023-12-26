@@ -10,6 +10,7 @@ import Profile from './Profile';
 
 
 function Layout() {
+
     return (
         <div className={layoutStyle.main}>
             <div className={layoutStyle.header}>

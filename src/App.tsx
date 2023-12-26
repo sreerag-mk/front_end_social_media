@@ -9,6 +9,7 @@ import Message from './pages/Message';
 import Photo from './pages/Photo';
 import Settings from './pages/Settings';
 import Search from './pages/Search';
+import SavedPost from './pages/SavedPost';
 
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path='/photo' element={<Photo />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/search' element={<Search />} />
+          <Route path='/saved' element={<SavedPost />} />
 
 
         </Route>

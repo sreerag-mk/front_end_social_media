@@ -27,7 +27,7 @@ const UserHeader: React.FC = () => {
         const { data } = await axios.get(process.env.REACT_APP_SEARCH, {
             params: sendType
         })
-        navigate('/search')
+        navigate('/search', { state: search })
         console.log(data.message)
     }
 
@@ -90,7 +90,9 @@ const UserHeader: React.FC = () => {
                     </div><div className={headerStyles.profile}>
                         <div className={headerStyles.profileIcons}>
                             <div className={headerStyles.saved}>
-                                <i className="fa-solid fa-bookmark"></i>
+                                <Link to={'/saved'}>
+                                    <i className="fa-solid fa-bookmark"></i>
+                                </Link>
                             </div>
                             <div className={headerStyles.notification}>
                                 <i className="fa-solid fa-bell"></i>

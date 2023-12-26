@@ -2,11 +2,13 @@
 import DataStyle from './Data.module.css'
 
 
-const Data = () => {
+const Data = (props: { group: { id: number; name: string; profilePicture: string } }) => {
+    console.log(props)
+    console.log('the props is above')
     return (
         <div className={DataStyle.main}>
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" alt="" />
-            <h5>User Name</h5>
+            <img src={props.group.profilePicture} alt="" />
+            <h5>{props.group.name}</h5>
 
         </div>
     )

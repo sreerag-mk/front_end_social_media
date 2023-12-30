@@ -10,7 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 function HomePage() {
     const [feed, setFeed] = useState<{ media_url: string; userId: number; id: number; profile_picture: string; user_name: string; caption: string | number }[]>([]);
-    const [isfeed, setIsFeed] = useState(false);
+    const [isfeed, setIsfeed] = useState(false);
     const [size, setSize] = useState(3);
     const sendData = {
         page: 1,
@@ -23,7 +23,7 @@ function HomePage() {
         })
         const feedDetail = data.message
         const isFeed = data.success
-        setIsFeed(isFeed)
+        setIsfeed(isFeed)
         setFeed(feedDetail)
     }
     useEffect(() => {

@@ -1,10 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 
-
-const feedURL: string = process.env.REACT_APP_FEEDS ?? ''
+const feedURL: string = process.env.REACT_APP_FEEDS ?? '';
 const UpdatedComponent = (OriginalComponent: React.FC) => {
-    function NewComponent(): React.FC {
+    function NewComponent() {
         const Navigate = useNavigate();
         const user: string | null = localStorage.getItem('userInfo');
         if (user !== null) {
@@ -12,23 +12,18 @@ const UpdatedComponent = (OriginalComponent: React.FC) => {
                 try {
                     await axios.get(feedURL);
                 } catch (error) {
-                    Navigate('/login')
+                    Navigate('/login');
                 }
             };
             fetchData();
-
         } else {
-            Navigate('/login')
+            Navigate('/login');
         }
 
-        return (
-            <OriginalComponent />
-        )
-
-
+        return <OriginalComponent />;
     }
 
-    return NewComponent
-}
+    return NewComponent;
+};
 
 export default UpdatedComponent;

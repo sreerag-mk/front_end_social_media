@@ -1,35 +1,45 @@
-
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react';
-
-import HomeStyle from '../components/Homepage.module.css'
-import '../components/container.css'
-import axios from '../api/axios';
-import FeedCard from '../components/FeedCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const getFeedUrl: string = process.env.REACT_APP_GETFEED ?? ''
+import HomeStyle from '../components/Homepage.module.css';
+import '../components/container.css';
+import axios from '../api/axios';
+import FeedCard from '../components/FeedCard';
+
+const getFeedUrl: string = process.env.REACT_APP_GETFEED ?? '';
 
 function HomePage() {
-    const [feed, setFeed] = useState<{ media_url: string; userId: number; id: number; profile_picture: string; user_name: string; caption: string | number }[]>([]);
+    const [feed, setFeed] = useState<
+        {
+            media_url: string;
+            userId: number;
+            id: number;
+            profile_picture: string;
+            user_name: string;
+            caption: string | number;
+        }[]
+    >([]);
     const [size, setSize] = useState(3);
     const sendData = {
         page: 1,
-        size: size
-    }
+        size,
+    };
 
     async function Feeds() {
         const { data } = await axios.get(getFeedUrl, {
-            params: sendData
-        })
-        const feedDetail = data.message
-        setFeed(feedDetail)
+            params: sendData,
+        });
+        const feedDetail = data.message;
+        setFeed(feedDetail);
     }
     useEffect(() => {
-        Feeds()
-    }, [size])
+        Feeds();
+    }, [size]);
     const fetchMoreData = () => {
-        setSize(size + 3)
-    }
+        setSize(size + 3);
+    };
     return (
         <div className={`${HomeStyle.container} ${HomeStyle.main}`}>
             <InfiniteScroll
@@ -38,13 +48,12 @@ function HomePage() {
                 hasMore={true}
                 loader={<h4>loading....</h4>}
             >
-                {feed.map(feeds => (
+                {feed.map((feeds) => (
                     <FeedCard key={feeds.id} feed={feeds} />
                 ))}
             </InfiniteScroll>
-
-        </div >
-    )
+        </div>
+    );
 }
 
-export default HomePage     
+export default HomePage;

@@ -21,16 +21,6 @@ const UserHeader: React.FC = () => {
             console.error('Logout error:', error);
         }
     };
-    const handleKey = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (e.key == 'Enter') {
-            e.preventDefault();
-            console.log('this is form pressing enter');
-            handleSearchBtnClick(e);
-            return false;
-
-        }
-    }
     const handleSearchBtnClick = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log(search)
@@ -105,7 +95,6 @@ const UserHeader: React.FC = () => {
                                     placeholder='Search'
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    onKeyPress={handleKey}
                                     required={true} />
                                 <button type="submit" className={headerStyles.forminside} onClick={handleSearchBtnClick} onKeyUp={handleSearchBtnClick} >
                                     <img

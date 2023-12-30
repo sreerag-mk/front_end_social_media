@@ -10,12 +10,12 @@ import { fetchProfile } from '../redux/slices/profile/ProfileData';
 import Loading from './Loading';
 
 
-interface followingType {
+interface FollowingType {
     following: number
     id: number
     user_name: string
 }
-interface followerType {
+interface FollowerType {
     follower: number
     id: number
     user_name: string
@@ -24,8 +24,8 @@ interface followerType {
 
 function Profile() {
     const dispatch = useAppDispatch();
-    const [following, setFollowing] = useState<followingType | undefined>();
-    const [follower, setFollower] = useState<followerType | undefined>();
+    const [following, setFollowing] = useState<FollowingType | undefined>();
+    const [follower, setFollower] = useState<FollowerType | undefined>();
     const dataState = useAppSelector((state) => state.profile.data);
     const isLoadingState = useAppSelector((state) => state.profile.isLoading);
     console.log('the state is');
@@ -62,11 +62,11 @@ function Profile() {
                     </div>
                     <div className={ProfileStyle.followDetail}>
                         <div className={ProfileStyle.follow}>
-                            <div className={ProfileStyle.count}>{following && following.following}</div>
+                            <div className={ProfileStyle.count}>{following?.following}</div>
                             <div className={ProfileStyle.text}>Following</div>
                         </div>
                         <div className={ProfileStyle.follow}>
-                            <div className={ProfileStyle.count}>{follower && follower.follower}</div>
+                            <div className={ProfileStyle.count}>{follower?.follower}</div>
                             <div className={ProfileStyle.text}>Follower</div>
                         </div>
                     </div>

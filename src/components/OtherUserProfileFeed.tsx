@@ -17,7 +17,7 @@ interface PostType {
 }
 
 interface OtherUserProfileHeaderProps {
-    userId: number;
+    readonly userId: number;
 }
 
 function OtherUserProfileFeed({ userId }: OtherUserProfileHeaderProps) {

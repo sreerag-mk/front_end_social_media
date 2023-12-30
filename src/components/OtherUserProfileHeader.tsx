@@ -9,7 +9,7 @@ import axios from '../api/axios';
 import style from './OtherUserProfileHeader.module.css';
 
 
-interface setUserDataType {
+interface SetUserDataType {
     address: string
     bio: string
     dob: string
@@ -22,28 +22,28 @@ interface setUserDataType {
     user_name: string
 }
 
-interface followingType {
+interface FollowingType {
     following: number
     id: number
     user_name: string
 }
 
-interface followerType {
+interface FollowerType {
     follower: number
     id: number
     user_name: string
 }
 
 interface OtherUserProfileHeaderProps {
-    userId: number;
+    readonly userId: number;
 }
 
 function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
-    const [userData, setUserData] = useState<setUserDataType>();
+    const [userData, setUserData] = useState<SetUserDataType>();
     const [follow, setFollow] = useState({});
     const [postCount, setPostCount] = useState(0);
-    const [following, setFollowing] = useState<followingType>();
-    const [follower, setFollower] = useState<followerType>();
+    const [following, setFollowing] = useState<FollowingType>();
+    const [follower, setFollower] = useState<FollowerType>();
     const sendData = {
         userId,
     };
@@ -144,10 +144,10 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
                                     <span>{postCount}</span>&nbsp;post
                                 </p>
                                 <p>
-                                    <span>{follower && follower.follower}</span>&nbsp;follower
+                                    <span>{follower?.follower}</span>&nbsp;follower
                                 </p>
                                 <p>
-                                    <span>{following && following.following}</span>&nbsp;following
+                                    <span>{following?.following}</span>&nbsp;following
                                 </p>
                             </div>
                             <p className={style.bio}>{userData.bio}</p>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import imageStyle from './ImageSlider.module.css';
 
 interface ImageSliderProps {
-    images: string[];
+    readonly images: readonly string[];
 }
 
 function ImageSlider({ images }: ImageSliderProps) {

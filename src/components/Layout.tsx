@@ -10,7 +10,7 @@ import Profile from './Profile';
 
 
 function Layout() {
-
+    const array: Array<string> = ['My Group', 'Friends']
     return (
         <div className={layoutStyle.main}>
             <div className={layoutStyle.header}>
@@ -18,8 +18,9 @@ function Layout() {
             </div>
             <div className={layoutStyle.body}>
                 <div className={layoutStyle.left}>
-                    <Details heading={'My Group'} />
-                    <Details heading={'Friends'} />
+                    {array.map((value) =>
+                        <Details heading={value} key={value} />
+                    )}
                 </div>
                 <div className={layoutStyle.middle}>
                     <Outlet />

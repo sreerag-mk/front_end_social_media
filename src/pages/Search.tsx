@@ -9,11 +9,13 @@ const Search = () => {
     const [user, setUser] = useState([])
     const [userFind, setUserFind] = useState([])
 
+    const searchURL: string = process.env.REACT_APP_SEARCH ?? ''
+
     async function gettingData() {
         const sendType = {
             user_name: state
         }
-        const { data } = await axios.get(process.env.REACT_APP_SEARCH, {
+        const { data } = await axios.get(searchURL, {
             params: sendType
         })
         const userDetail = data.message
@@ -30,7 +32,7 @@ const Search = () => {
     return (
         <div className={searchStyle.main}>
             {userFind ?
-                user.map((users: { id: any; name?: string; profilePicture?: string }) => (
+                user.map((users: { id: number; name: string; profilePicture: string }) => (
                     <Data key={users.id} group={users} />
                 ))
                 :

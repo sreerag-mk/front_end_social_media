@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import signupStyles from './Signup.module.css'
 import axios from '../api/axios';
 import useAuth from '../hooks/useAuth'
-const signinUrl = process.env.REACT_APP_SIGNUP
+const signinUrl: string = process.env.REACT_APP_SIGNUP ?? ''
+const loginUrl: string = process.env.REACT_APP_LOGIN ?? ''
 
 
 const Signup = () => {
@@ -29,7 +30,7 @@ const Signup = () => {
 
                 const { data } = await axios.post(signinUrl, { first_name: userInfo.first_name, last_name: userInfo.last_name, user_name: userInfo.user_name, address: userInfo.address, phone_number: userInfo.phone_number, dob: userInfo.date_of_birth, password: userInfo.password, gender: userInfo.gender })
                 if (data.success === true) {
-                    const loginDatas = await axios.post(process.env.REACT_APP_LOGIN, { username: userInfo.user_name, password: userInfo.password })
+                    const loginDatas = await axios.post(loginUrl, { username: userInfo.user_name, password: userInfo.password })
                     if (loginDatas.data.success === true) {
                         localStorage.setItem('userInfo', JSON.stringify(loginDatas.data.token))
                         const accessToken = data.token

@@ -1,25 +1,24 @@
-import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
 
-const UpdatedComponent = (OriginalComponent: JSX.IntrinsicAttributes) => {
-    function newComponent() {
-        const navigate = useNavigate();
+
+const feedURL: string = process.env.REACT_APP_FEEDS ?? ''
+const UpdatedComponent = (OriginalComponent: React.FC) => {
+    function NewComponent(): React.FC {
+        const Navigate = useNavigate();
         const user: string | null = localStorage.getItem('userInfo');
         if (user !== null) {
             const fetchData = async () => {
                 try {
-                    const newUser = await axios.get(process.env.REACT_APP_FEEDS);
-                    console.log('the data is data---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-                    console.log(newUser)
+                    await axios.get(feedURL);
                 } catch (error) {
-                    navigate('/login')
+                    Navigate('/login')
                 }
             };
             fetchData();
 
         } else {
-            console.log("No user info found----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-            navigate('/login')
+            Navigate('/login')
         }
 
         return (
@@ -29,7 +28,7 @@ const UpdatedComponent = (OriginalComponent: JSX.IntrinsicAttributes) => {
 
     }
 
-    return newComponent
+    return NewComponent
 }
 
 export default UpdatedComponent;

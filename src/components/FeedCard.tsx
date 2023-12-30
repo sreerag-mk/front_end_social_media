@@ -1,53 +1,129 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ImageSlider from './ImageSlider'
 import HomeStyle from './FeedCard.module.css'
 import axios from '../api/axios'
 import heart from '../icons/heart.png'
 import liked from '../icons/heartfill.png'
-import comment from '../icons/chat.png'
+import comments from '../icons/chat.png'
 import save from '../icons/save-instagram.png'
+import ShortComment from './ShortComment'
 
+const likeURL: string = process.env.REACT_APP_LIKE ?? ''
+const likeCountURL: string = process.env.REACT_APP_LIKECOUNT ?? ''
+const userLikeURL: string = process.env.REACT_APP_USERLIKED ?? ''
 
-const FeedCard = (props: { feed: { media_url: string; id: number; profile_picture: string; user_name: string; caption: string | number } }) => {
+interface FeedCardProps {
+    readonly feed: Readonly<{
+        media_url: string;
+        userId: number;
+        id: number;
+        profile_picture: string;
+        user_name: string;
+        caption: string | number;
+    }>;
+}
+
+function FeedCard({ feed }: FeedCardProps) {
+    const navigate = useNavigate()
     const [likeCountState, setLikeCountState] = useState()
+    const [commentCountState, setCommentCountState] = useState()
+    const [shortComment, setShortComment] = useState([])
+    const [newComment, setNewComment] = useState('')
     const [like, setLike] = useState(false)
-    const url = JSON.parse(props.feed.media_url)
+    const url = JSON.parse(feed.media_url)
     const sendType = {
         type: 'post',
-        id: props.feed.id
+        id: feed.id
     }
-    async function handleLike() {
-        console.log('clicked like')
-        console.log(props.feed.id)
-        const { data } = await axios.post(process.env.REACT_APP_LIKE, sendType)
-        setLike(data.liked)
-        console.log(sendType)
-        console.log(like)
-        likeCount()
+    const sendCommentCount = {
+        id: feed.id
     }
 
+
+    async function handleAllComment() {
+        console.log('all comment')
+    }
+
+
+    async function commentCount() {
+        const { data } = await axios.get('/comment/commentcount', {
+            params: sendCommentCount
+        })
+        setCommentCountState(data.message[0].comments)
+    }
     async function likeCount() {
         console.log('inside the like count')
-        const { data } = await axios.get(process.env.REACT_APP_LIKECOUNT, {
+        const { data } = await axios.get(likeCountURL, {
             params: sendType,
         })
         setLikeCountState(data.message)
         console.log('exited the like count')
 
     }
+    async function handleLike() {
+        console.log('clicked like')
+        console.log(feed.id)
+        const { data } = await axios.post(likeURL, sendType)
+        setLike(data.liked)
+        console.log(sendType)
+        console.log(like)
+        likeCount()
+    }
+
+    async function handleClick() {
+        navigate('/profile', { state: feed.userId })
+    }
     async function likes() {
         console.log('the data is')
         const sendData = {
             type: 'post'
         }
-        const { data } = await axios.get(process.env.REACT_APP_USERLIKED, {
+        const { data } = await axios.get(userLikeURL, {
             params: sendData,
         })
+        console.log('ths fromliked ');
+
         console.log(data.message)
 
+        const dataArray = data.message;
+
+        dataArray.map((e: { post_id: number }) => {
+            if (e.post_id === feed.id) {
+                setLike(true)
+                console.log('set to true id is', feed.id)
+
+            }
+            return null
+        })
+
+    }
+    async function getShortComments() {
+        const sendForComment = {
+            postId: feed.id
+        }
+        const { data } = await axios.get('/comment/commentshortview', {
+            params: sendForComment
+        })
+        console.log('the data for showing the small comment is , ', data.message)
+        setShortComment(data.message)
+    }
+    const handlecomment: React.FormEventHandler<HTMLFormElement> = (event) => {
+        event.preventDefault();
+        axios.post('/comment/comment', { id: feed.id, content: newComment })
+        commentCount()
+        setNewComment('')
+        getShortComments()
     }
     useEffect(() => {
-        likeCount()
+        const fetchData = async () => {
+            await likeCount();
+            await likes();
+            await commentCount();
+            await getShortComments();
+        };
+
+        fetchData();
     }, [])
 
 
@@ -56,11 +132,17 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
         <div className={HomeStyle.container}>
             <div className={HomeStyle.main}>
                 <div className={HomeStyle.user}>
-                    <div className={HomeStyle.username}>
-                        <img src={props.feed.profile_picture} alt="" />
-                        <p>{props.feed.user_name}</p>
+                    <button className={HomeStyle.username} onClick={handleClick} onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleClick();
+                        }
+                    }}
+                        tabIndex={0}>
+                        <img src={feed.profile_picture} alt={`${feed.user_name}`}
+                        />
+                        <p>{feed.user_name}</p>
 
-                    </div>
+                    </button>
                     <div className={HomeStyle.dots}>
                         <i className="fa-solid fa-ellipsis-vertical"></i>
 
@@ -72,7 +154,7 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
                 <div className={HomeStyle.details}>
                     <div className={HomeStyle.like}>
                         {like ? <img onClick={handleLike} className={HomeStyle.icon} onKeyUp={() => console.log('key is up')} src={liked} alt="" /> : <img onClick={handleLike} className={HomeStyle.icon} onKeyUp={() => console.log('key is up')} src={heart} alt="" />}
-                        <img className={HomeStyle.lcon} src={comment} alt="" />
+                        <img className={HomeStyle.lcon} src={comments} alt="" />
 
                     </div>
                     <div className={HomeStyle.save}>
@@ -83,8 +165,29 @@ const FeedCard = (props: { feed: { media_url: string; id: number; profile_pictur
                     {likeCountState} <p> &nbsp;&nbsp;Likes</p>
                 </div>
                 <div className={HomeStyle.content}>
-                    {props.feed.caption}
+                    <span>{feed.user_name}</span> &nbsp;{feed.caption}
                 </div>
+                <div className={HomeStyle.shortComment}>
+                    {shortComment.length > 0 ?
+                        shortComment.map((comment) => <ShortComment key={shortComment.id} datas={comment} />)
+
+
+                        :
+                        <p>No comments yet</p>
+                    }
+                </div>
+                <div className={HomeStyle.commentView}>
+                    <p className={HomeStyle.p} onClick={handleAllComment} onKeyDown={handleAllComment} >View all {commentCountState} comments</p>
+
+                </div>
+                <form className={HomeStyle.form} onSubmit={handlecomment} >
+                    <input type="text"
+                        placeholder='Comment something...'
+                        onChange={(e) => setNewComment(e.target.value)}
+                        required={true} />
+                    <button type="submit" className={HomeStyle.forminside}>
+                        POST</button>
+                </form>
             </div>
         </div >
     )

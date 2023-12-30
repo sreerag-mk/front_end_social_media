@@ -1,7 +1,6 @@
 .main {
     margin: auto;
     padding: 0px 20px;
-    max-height: 800px;
     color: black;
     margin-bottom: 30px;
     margin-top: 10px;
@@ -22,6 +21,8 @@
     align-items: center;
     padding: 10px 0px;
     gap: 10px;
+    background: white;
+    border: none;
 }
 
 .username img {
@@ -41,7 +42,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0px;
+    padding: 10px 0px 0px;
 }
 
 .like {
@@ -60,7 +61,10 @@
 .content {
     display: flex;
     align-items: flex-start;
-    padding-bottom: 20px;
+}
+
+.content span {
+    font-weight: bold;
 }
 
 .comments {
@@ -80,4 +84,40 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+.form {
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding-bottom: 15px;
+}
+
+.form input {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    border-radius: 60px;
+    font-size: 15px;
+    backdrop-filter: blur(4px) saturate(180%);
+    z-index: 10000;
+}
+
+.form button {
+    border: 0;
+    background: white;
+    color: #ff4800;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.commentView {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0px;
 }

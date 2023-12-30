@@ -157,6 +157,10 @@
     border-radius: 5px;
 }
 
+.saved i {
+    color: black;
+}
+
 .saved:hover {
     background-color: #ff4800;
 }
@@ -190,6 +194,10 @@
     align-items: center;
     justify-content: center;
     gap: 10%;
+}
+
+.username a {
+    text-decoration: none;
 }
 
 .userDetail img {

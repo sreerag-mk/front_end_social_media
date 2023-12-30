@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
 
+const feedURL: string = process.env.REACT_APP_FEEDS ?? ''
+
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 interface Auth {
@@ -22,11 +24,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             const fetchData = async () => {
                 try {
-                    const newUser = await axios.get(process.env.REACT_APP_FEEDS);
+                    const newUser = await axios.get(feedURL);
                     const newData = newUser.data.message[0];
                     setAuth(({ data: newData }));
                 } catch (error) {
-                    // navigate('/login')
                 }
             };
 

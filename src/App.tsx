@@ -4,12 +4,15 @@ import HomePage from './pages/HomePage';
 import Signup from './pages/Signup';
 import Layout from './components/Layout';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
+import Profile from './pages/OtherProfile';
 import Message from './pages/Message';
 import Photo from './pages/Photo';
 import Settings from './pages/Settings';
 import Search from './pages/Search';
 import SavedPost from './pages/SavedPost';
+import Addpost from './pages/Addpost';
+import Explore from './pages/Explore';
+import Comment from './components/Comment';
 
 
 
@@ -30,6 +33,9 @@ function App() {
           <Route path='/settings' element={<Settings />} />
           <Route path='/search' element={<Search />} />
           <Route path='/saved' element={<SavedPost />} />
+          <Route path='/addpost' element={<Addpost />} />
+          <Route path='/explore' element={<Explore />} />
+          <Route path='/comment' element={<Comment />} />
 
 
         </Route>

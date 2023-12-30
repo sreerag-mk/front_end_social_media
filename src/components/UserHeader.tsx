@@ -6,6 +6,9 @@ import { fetchProfile } from '../redux/slices/profile/ProfileData'
 import Loading from './Loading'
 import axios from '../api/axios'
 
+
+const searchURL: string = process.env.REACT_APP_SEARCH ?? ''
+
 const UserHeader: React.FC = () => {
     const [search, setSearch] = useState<string>('')
     const navigate = useNavigate();
@@ -18,22 +21,39 @@ const UserHeader: React.FC = () => {
             console.error('Logout error:', error);
         }
     };
+    const handleKey = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (e.key == 'Enter') {
+            e.preventDefault();
+            console.log('this is form pressing enter');
+            handleSearchBtnClick(e);
+            return false;
+
+        }
+    }
     const handleSearchBtnClick = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log(search)
         const sendType = {
             user_name: search
         }
-        const { data } = await axios.get(process.env.REACT_APP_SEARCH, {
+        const { data } = await axios.get(searchURL, {
             params: sendType
         })
         navigate('/search', { state: search })
         console.log(data.message)
+        return false;
+    }
+
+    const handleProfileClick = async () => {
+        navigate('/profile', { state: dataState.id })
     }
 
 
     const dispatch = useAppDispatch()
     const dataState = useAppSelector((state) => state.profile.data);
+    console.log('new id is equal to ', dataState)
+
     const isLoadingState = useAppSelector((state) => state.profile.isLoading);
     useEffect(() => {
         dispatch(fetchProfile())
@@ -57,15 +77,19 @@ const UserHeader: React.FC = () => {
                                 </Link>
                             </div>
                             <div className={headerStyles.exploreIcon}>
-                                <Link to={'/profile'} >
+                                <Link to={'/explore'} >
 
                                     <i className="fa-solid fa-compass"></i>
                                 </Link>
                             </div>
                             <div className={headerStyles.messageIcon}>
                                 <Link to={'/message'} >
-
                                     <i className="fa-solid fa-message"></i>
+                                </Link>
+                            </div>
+                            <div className={headerStyles.messageIcon}>
+                                <Link to={'/addpost'} >
+                                    <i className="fa-solid fa-plus"></i>
                                 </Link>
                             </div>
                             <div className={headerStyles.heartIcon}>
@@ -81,10 +105,11 @@ const UserHeader: React.FC = () => {
                                     placeholder='Search'
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
+                                    onKeyPress={handleKey}
                                     required={true} />
-                                <button type="submit" className={headerStyles.forminside}>
+                                <button type="submit" className={headerStyles.forminside} onClick={handleSearchBtnClick} onKeyUp={handleSearchBtnClick} >
                                     <img
-                                        src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="" onClick={handleSearchBtnClick} onKeyUp={handleSearchBtnClick} /></button>
+                                        src="https://www.freeiconspng.com/uploads/search-icon-png-5.png" alt="Serach" /></button>
                             </form>
                         </div>
                     </div><div className={headerStyles.profile}>
@@ -100,11 +125,14 @@ const UserHeader: React.FC = () => {
                             </div>
                         </div>
                         <div className={headerStyles.userDetail}>
-                            <div className={headerStyles.username}>
-                                <img src={dataState.profile_picture} alt="" />
-                                <h5>{dataState.user_name}</h5>
+                            <div className={headerStyles.username} onClick={handleProfileClick} onKeyDown={handleProfileClick}>
+                                <a><img src={dataState.profile_picture} alt="" /></a>
+                                <a><h5>
+                                    {dataState.user_name}</h5>
+                                </a>
+
                             </div>
-                            <i className="fa-solid fa-caret-down" onClick={handleLogout} onKeyUp={() => console.log('key is up')}></i>
+                            <i className="fa-solid fa-arrow-right-from-bracket" onClick={handleLogout} onKeyUp={() => console.log('key is up')}></i>
 
                         </div>
                     </div></>

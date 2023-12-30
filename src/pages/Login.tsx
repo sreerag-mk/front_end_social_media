@@ -4,7 +4,7 @@ import loginStyles from './Login.module.css'
 import axios from '../api/axios'
 
 
-const loginUrl = process.env.REACT_APP_LOGIN
+const loginUrl: string = process.env.REACT_APP_LOGIN ?? ''
 
 const Login = () => {
     localStorage.clear();

@@ -1,30 +1,31 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 
 import detailsStyle from './Details.module.css'
 import Data from './Data'
 
-const Details = (heading: { heading: string | null }) => {
+interface DetailsProps {
+    heading: string | null;
+}
 
-    console.log(heading.heading)
-    const [url, setUrl] = useState('')
+const Details: React.FC<DetailsProps> = ({ heading }) => {
+
     let newUrl = ''
-    const [group, setGroup] = useState([]);
+    interface Group {
+        id: number;
+    }
+    const [group, setGroup] = useState<Group[] | undefined>(undefined);
     async function groups() {
-        console.log('this Is inside the group fnction')
-        console.log(url)
         const { data } = await axios.get(newUrl)
         const groupDetail = data.message
         setGroup(groupDetail)
     }
 
     useEffect(() => {
-        if (heading.heading === 'My Group') {
-            setUrl('/group/mygroup')
+        if (heading === 'My Group') {
             newUrl = '/group/mygroup'
         }
-        else if (heading.heading === 'Friends') {
-            setUrl('/follow/getfollowingname')
+        else if (heading === 'Friends') {
             newUrl = '/follow/getfollowingname'
         }
         groups()
@@ -38,16 +39,21 @@ const Details = (heading: { heading: string | null }) => {
         <div className={detailsStyle.detail}>
             <div className={detailsStyle.heading}>
                 <div className={detailsStyle.title}>
-                    <h5>{heading.heading}</h5>
+                    <h5>{heading}</h5>
                 </div>
                 <div className={detailsStyle.option}>
                     <i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i>
                 </div>
             </div>
             <div className={detailsStyle.data}>
-                {group.map(groups => (
-                    <Data key={groups.id} group={groups} />
-                ))}
+                {group ?
+                    group.map(groups => (
+                        <Data key={groups.id} group={groups} />
+                    ))
+
+                    :
+                    <h3>Nothing to show</h3>
+                }
 
             </div>
         </div>

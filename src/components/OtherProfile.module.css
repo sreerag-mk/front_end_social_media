@@ -1,0 +1,10 @@
+.page {
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.center {
+    border-bottom: .5px solid #cccccc;
+    width: 100%;
+}

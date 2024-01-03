@@ -2,9 +2,9 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import headerStyles from './UserHeader.module.css';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchProfile } from '../redux/slices/profile/ProfileData';
+import headerStyles from './UserHeader.module.css';
 import Loading from './Loading';
 import axios from '../api/axios';
 
@@ -116,9 +116,8 @@ const UserHeader: React.FC = function () {
                             </div>
                         </div>
                         <div className={headerStyles.userDetail}>
-                            <div
-                                role='button'
-                                tabIndex={0}
+                            <button
+                                type='button'
                                 className={headerStyles.username}
                                 onClick={handleProfileClick}
                                 onKeyDown={handleProfileClick}
@@ -128,15 +127,11 @@ const UserHeader: React.FC = function () {
 
                                 <h5>{dataState.user_name}</h5>
 
-                            </div>
-                            <i
-                                role='button'
-                                tabIndex={0}
-                                aria-label="icon"
-                                className="fa-solid fa-arrow-right-from-bracket"
-                                onClick={handleLogout}
-                                onKeyUp={() => console.log('key is up')}
-                            />
+                            </button>
+                            <button type='button' aria-label="logout" onClick={handleLogout} onKeyUp={handleLogout} className={headerStyles.logout}>
+
+                                <i className="fa-solid fa-arrow-right-from-bracket" />
+                            </button>
                         </div>
                     </div>
                 </>

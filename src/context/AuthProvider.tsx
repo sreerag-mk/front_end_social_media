@@ -31,7 +31,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             };
 
             fetchData();
-        } else {
         }
     }, []);
 

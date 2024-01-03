@@ -16,10 +16,10 @@ function Data({ group }: DataType) {
         navigate('/profile', { state: group.id });
     }
     return (
-        <div role='button' tabIndex={0} className={DataStyle.main} onClick={handleClick} onKeyUp={handleClick}>
+        <button type='button' className={DataStyle.main} onClick={handleClick} onKeyUp={handleClick}>
             <img src={group.profilePicture} alt="" />
             <h5>{group.name}</h5>
-        </div>
+        </button>
     );
 }
 

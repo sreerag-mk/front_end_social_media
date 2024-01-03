@@ -21,31 +21,25 @@ function ImageSlider({ images }: ImageSliderProps) {
 
     return (
         <div className={imageStyle.slider}>
-            <div className={imageStyle.previous}>
+            <button type='button' className={imageStyle.previous}
+                onClick={prevSlide}
+                onKeyUp={() => console.log('key is up')}>
                 {image !== 0 && (
                     <i
-                        role='button'
-                        tabIndex={0}
-                        aria-label="image"
                         className="fa-solid fa-chevron-left fa-fade fa-2xl"
-                        onClick={prevSlide}
-                        onKeyUp={() => console.log('key is up')}
                     />
                 )}
-            </div>
+            </button>
             <img src={images[image]} alt="" />
-            <div className={imageStyle.next}>
+            <button type='button' className={imageStyle.next}
+                onClick={nextSlide}
+                onKeyUp={() => console.log('key is up')}>
                 {image + 1 !== images.length && (
                     <i
-                        role='button'
-                        tabIndex={0}
-                        aria-label="image"
                         className="fa-solid fa-chevron-right fa-fade fa-2xl"
-                        onClick={nextSlide}
-                        onKeyUp={() => console.log('key is up')}
                     />
                 )}
-            </div>
+            </button>
         </div>
     );
 }

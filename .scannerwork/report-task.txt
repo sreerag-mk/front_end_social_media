@@ -2,5 +2,5 @@ projectKey=social-media-front-end
 serverUrl=http://localhost:9000
 serverVersion=10.3.0.82913
 dashboardUrl=http://localhost:9000/dashboard?id=social-media-front-end
-ceTaskId=AYy7-gBv4XbAkLpjf0Xz
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYy7-gBv4XbAkLpjf0Xz
+ceTaskId=AYzPKhX6ZhnXKkHjoAv0
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYzPKhX6ZhnXKkHjoAv0

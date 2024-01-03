@@ -3,7 +3,7 @@ import React from 'react'
 import style from './ShortComment.module.css'
 
 interface TypeShortComment {
-    datas: { id: number; userName: string; profilePicture: string; postId: number; content: string }
+    readonly datas: { id: number; userName: string; profilePicture: string; postId: number; content: string }
 }
 
 function ShortComment({ datas }: TypeShortComment) {

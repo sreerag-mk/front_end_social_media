@@ -194,6 +194,13 @@
     align-items: center;
     justify-content: center;
     gap: 10%;
+    border: none;
+    background-color: white;
+}
+
+.logout {
+    border: none;
+    background-color: white;
 }
 
 .username a {

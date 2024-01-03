@@ -3,7 +3,7 @@ import React from 'react';
 import style from './PostCard.module.css';
 
 interface PostCardType {
-    feed: {
+    readonly feed: {
         media_url: string;
         userId: number;
         id: number;

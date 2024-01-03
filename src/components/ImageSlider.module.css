@@ -9,3 +9,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.previous {
+    border: none;
+}
+
+.next {
+    border: none;
+}

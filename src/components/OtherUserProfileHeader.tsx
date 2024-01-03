@@ -112,15 +112,14 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
                         <div className={style.profileData2}>
                             <div className={style.userButton}>
                                 <p className={style.user_name}>{userData.user_name}</p>
-                                <div
-                                    role='button'
-                                    tabIndex={0}
+                                <button
+                                    type='button'
                                     className={style.followButton}
                                     onClick={FollowUser}
                                     onKeyDown={followerUser}
                                 >
                                     {follow ? <p>Follow</p> : <p>Unfollow</p>}
-                                </div>
+                                </button>
                             </div>
                             <div className={style.userFollow}>
                                 <p>

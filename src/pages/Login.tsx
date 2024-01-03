@@ -69,15 +69,14 @@ function Login() {
                             required={true}
                         />
                         <span>Password</span>
-                        <p role='button'
-                            tabIndex={0}
+                        <button type='button'
                             className={loginStyles.show}
                             onClick={handleClick}
                             onKeyDown={handleClick}
 
                         >
                             {show ? 'Hide' : 'Show'}
-                        </p>
+                        </button>
                         <i />
                     </div>
                     <div className={loginStyles.loginLinks}>

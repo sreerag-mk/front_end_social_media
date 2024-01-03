@@ -70,7 +70,7 @@ function Addpost() {
 
                 <label htmlFor="file" className={style.label}>
                     <input type="file" onChange={handleChange} id="file" />
-                    choose a photo
+                    <p>choose a photo</p>
                 </label>
                 <input className={style.submit} type="submit" value="post" />
             </form>

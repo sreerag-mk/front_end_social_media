@@ -181,5 +181,6 @@
     background: transparent;
     border: 0;
     z-index: 100;
+    border: none;
 
 }

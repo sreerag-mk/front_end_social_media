@@ -148,32 +148,24 @@ function FeedCard({ feed }: FeedCardProps) {
                     <ImageSlider images={url} />
                 </div>
                 <div className={HomeStyle.details}>
-                    <div className={HomeStyle.like}>
+                    <button type='button' className={HomeStyle.like}
+                        onClick={handleLike}
+                        onKeyUp={() => console.log('key is up')}>
                         {like ? (
                             <img
-                                role='button'
-                                tabIndex={0}
-                                aria-label="image"
-                                onClick={handleLike}
                                 className={HomeStyle.icon}
-                                onKeyUp={() => console.log('key is up')}
                                 src={liked}
                                 alt=""
                             />
                         ) : (
                             <img
-                                role='button'
-                                tabIndex={0}
-                                aria-label="image"
-                                onClick={handleLike}
                                 className={HomeStyle.icon}
-                                onKeyUp={() => console.log('key is up')}
                                 src={heart}
                                 alt=""
                             />
                         )}
                         <img className={HomeStyle.lcon} src={comments} alt="" />
-                    </div>
+                    </button>
                     <div className={HomeStyle.save}>
                         <img className={HomeStyle.lcon} src={save} alt="" />
                     </div>
@@ -193,18 +185,13 @@ function FeedCard({ feed }: FeedCardProps) {
                         <p>No comments yet</p>
                     )}
                 </div>
-                <div className={HomeStyle.commentView}>
-                    <p
-                        role='button'
-                        tabIndex={0}
-                        aria-label="image"
-                        className={HomeStyle.p}
-                        onClick={handleAllComment}
-                        onKeyDown={handleAllComment}
-                    >
+                <button type='button' className={HomeStyle.commentView}
+                    onClick={handleAllComment}
+                    onKeyDown={handleAllComment}>
+                    <p className={HomeStyle.p}>
                         View all {commentCountState} comments
                     </p>
-                </div>
+                </button>
                 <form className={HomeStyle.form} onSubmit={handlecomment}>
                     <input
                         type="text"

@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable prettier/prettier */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const counterSlice = createSlice({

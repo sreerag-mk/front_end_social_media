@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 import { useState } from 'react';
@@ -20,12 +19,14 @@ function ImageSlider({ images }: ImageSliderProps) {
         setImage(newIndex);
     };
 
-    console.log('555555555555555555555555555555555555555555555555555555555555555555555555', images)
     return (
         <div className={imageStyle.slider}>
             <div className={imageStyle.previous}>
                 {image !== 0 && (
                     <i
+                        role='button'
+                        tabIndex={0}
+                        aria-label="image"
                         className="fa-solid fa-chevron-left fa-fade fa-2xl"
                         onClick={prevSlide}
                         onKeyUp={() => console.log('key is up')}
@@ -36,6 +37,9 @@ function ImageSlider({ images }: ImageSliderProps) {
             <div className={imageStyle.next}>
                 {image + 1 !== images.length && (
                     <i
+                        role='button'
+                        tabIndex={0}
+                        aria-label="image"
                         className="fa-solid fa-chevron-right fa-fade fa-2xl"
                         onClick={nextSlide}
                         onKeyUp={() => console.log('key is up')}

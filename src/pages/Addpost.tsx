@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable prettier/prettier */
 import React, { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -69,8 +68,8 @@ function Addpost() {
                     <i />
                 </div>
 
-                <input type="file" onChange={handleChange} id="file" />
                 <label htmlFor="file" className={style.label}>
+                    <input type="file" onChange={handleChange} id="file" />
                     choose a photo
                 </label>
                 <input className={style.submit} type="submit" value="post" />

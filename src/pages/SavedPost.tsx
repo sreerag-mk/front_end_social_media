@@ -1,9 +1,8 @@
-import React from 'react'
+/* eslint-disable prettier/prettier */
+import React from 'react';
 
-const SavedPost = () => {
-    return (
-        <div>Welcome to saved post</div>
-    )
+function SavedPost() {
+    return <div>Welcome to saved post</div>;
 }
 
-export default SavedPost
+export default SavedPost;

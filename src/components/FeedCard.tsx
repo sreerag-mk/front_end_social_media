@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +30,7 @@ interface FeedCardProps {
 
 interface Comment {
     id: number;
+    userId: number
     userName: string;
     profilePicture: string;
     postId: number;
@@ -54,7 +54,7 @@ function FeedCard({ feed }: FeedCardProps) {
     };
 
     async function handleAllComment() {
-        console.log('all comment');
+        console.log('handle all comment is clicked')
     }
 
     async function commentCount() {
@@ -64,20 +64,14 @@ function FeedCard({ feed }: FeedCardProps) {
         setCommentCountState(data.message[0].comments);
     }
     async function likeCount() {
-        console.log('inside the like count');
         const { data } = await axios.get(likeCountURL, {
             params: sendType,
         });
         setLikeCountState(data.message);
-        console.log('exited the like count');
     }
     async function handleLike() {
-        console.log('clicked like');
-        console.log(feed.id);
         const { data } = await axios.post(likeURL, sendType);
         setLike(data.liked);
-        console.log(sendType);
-        console.log(like);
         likeCount();
     }
 
@@ -85,27 +79,19 @@ function FeedCard({ feed }: FeedCardProps) {
         navigate('/profile', { state: feed.userId });
     }
     async function likes() {
-        console.log('the data is');
         const sendData = {
             type: 'post',
         };
         const { data } = await axios.get(userLikeURL, {
             params: sendData,
         });
-        console.log('ths fromliked ');
-
-        console.log(data.message);
-
         const dataArray = data.message;
-
         if (dataArray) {
             const found = dataArray.some(
                 (e: { post_id: number }) => e.post_id === feed.id
             );
-
             if (found) {
                 setLike(true);
-                console.log('set to true id is', feed.id);
             }
         }
     }
@@ -116,7 +102,6 @@ function FeedCard({ feed }: FeedCardProps) {
         const { data } = await axios.get('/comment/commentshortview', {
             params: sendForComment,
         });
-        console.log('the data for showing the small comment is , ', data.message);
         setShortComment(data.message);
     }
     const handlecomment: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -142,6 +127,7 @@ function FeedCard({ feed }: FeedCardProps) {
             <div className={HomeStyle.main}>
                 <div className={HomeStyle.user}>
                     <button
+                        type='button'
                         className={HomeStyle.username}
                         onClick={handleClick}
                         onKeyDown={(e) => {
@@ -165,6 +151,9 @@ function FeedCard({ feed }: FeedCardProps) {
                     <div className={HomeStyle.like}>
                         {like ? (
                             <img
+                                role='button'
+                                tabIndex={0}
+                                aria-label="image"
                                 onClick={handleLike}
                                 className={HomeStyle.icon}
                                 onKeyUp={() => console.log('key is up')}
@@ -173,6 +162,9 @@ function FeedCard({ feed }: FeedCardProps) {
                             />
                         ) : (
                             <img
+                                role='button'
+                                tabIndex={0}
+                                aria-label="image"
                                 onClick={handleLike}
                                 className={HomeStyle.icon}
                                 onKeyUp={() => console.log('key is up')}
@@ -203,6 +195,9 @@ function FeedCard({ feed }: FeedCardProps) {
                 </div>
                 <div className={HomeStyle.commentView}>
                     <p
+                        role='button'
+                        tabIndex={0}
+                        aria-label="image"
                         className={HomeStyle.p}
                         onClick={handleAllComment}
                         onKeyDown={handleAllComment}

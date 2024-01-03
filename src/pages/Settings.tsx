@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import useAuth from '../hooks/useAuth'
 
 

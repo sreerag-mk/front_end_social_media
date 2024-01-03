@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
 
@@ -14,35 +9,29 @@ interface DetailsProps {
     heading: string | null;
 }
 
-interface Group {
-    id: number;
-    name: string;
-    profilePicture: string;
-}
-
-
-const Details: React.FC<DetailsProps> = ({ heading }) => {
-    let newUrl = '';
+const Details: React.FC<DetailsProps> = function ({ heading }) {
+    const [newUrl, setNewUrl] = useState('')
     interface Group {
         name: string;
         profilePicture: string;
         id: number;
     }
     const [group, setGroup] = useState<Group[] | undefined>(undefined);
-    async function groups() {
-        const { data } = await axios.get(newUrl);
-        const groupDetail = data.message;
-        setGroup(groupDetail);
-    }
+
 
     useEffect(() => {
         if (heading === 'My Group') {
-            newUrl = '/group/mygroup';
+            setNewUrl('/group/mygroup')
         } else if (heading === 'Friends') {
-            newUrl = '/follow/getfollowingname';
+            setNewUrl('/follow/getfollowingname')
+        }
+        async function groups() {
+            const { data } = await axios.get(newUrl);
+            const groupDetail = data.message;
+            setGroup(groupDetail);
         }
         groups();
-    }, []);
+    }, [heading, newUrl]);
 
     return (
         <div className={detailsStyle.detail}>

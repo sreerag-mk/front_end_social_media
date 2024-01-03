@@ -1,9 +1,8 @@
-import React from 'react'
+/* eslint-disable prettier/prettier */
+import React from 'react';
 
-const Comment = () => {
-    return (
-        <div>Comment</div>
-    )
+function Comment() {
+    return <div>Comment</div>;
 }
 
-export default Comment
+export default Comment;

@@ -1,6 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { useContext } from 'react';
 import AuthContext from '../context/AuthProvider';
-
 
 interface Auth {
     [key: string]: any;

@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
 import HomeStyle from '../components/Homepage.module.css';
 import '../components/container.css';
 import axios from '../api/axios';
@@ -21,20 +19,25 @@ function HomePage() {
             caption: string | number;
         }[]
     >([]);
-    const [size, setSize] = useState(3);
-    const sendData = {
-        page: 1,
-        size,
-    };
+    const [isfeed, setIsfeed] = useState(false);
+    const [size, setSize] = useState(4);
 
-    async function Feeds() {
-        const { data } = await axios.get(getFeedUrl, {
-            params: sendData,
-        });
-        const feedDetail = data.message;
-        setFeed(feedDetail);
-    }
+
+
     useEffect(() => {
+        const sendData = {
+            page: 1,
+            size,
+        };
+        async function Feeds() {
+            const { data } = await axios.get(getFeedUrl, {
+                params: sendData,
+            });
+            const feedDetail = data.message;
+            const isFeed = data.success;
+            setIsfeed(isFeed);
+            setFeed(feedDetail);
+        }
         Feeds();
     }, [size]);
     const fetchMoreData = () => {
@@ -42,16 +45,20 @@ function HomePage() {
     };
     return (
         <div className={`${HomeStyle.container} ${HomeStyle.main}`}>
-            <InfiniteScroll
-                dataLength={feed.length}
-                next={fetchMoreData}
-                hasMore={true}
-                loader={<h4>loading....</h4>}
-            >
-                {feed.map((feeds) => (
-                    <FeedCard key={feeds.id} feed={feeds} />
-                ))}
-            </InfiniteScroll>
+            {isfeed ? feed && (
+                <InfiniteScroll
+                    dataLength={feed.length}
+                    next={fetchMoreData}
+                    hasMore={true}
+                    loader={<h4>loading....</h4>}
+                >
+                    {feed.map((feeds) => (
+                        <FeedCard key={feeds.id} feed={feeds} />
+                    ))}
+                </InfiniteScroll>
+            ) : (
+                <h5>Nothing to show </h5>
+            )}
         </div>
     );
 }

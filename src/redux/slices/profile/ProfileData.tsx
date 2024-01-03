@@ -1,19 +1,16 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../../api/axios";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-param-reassign */
+/* eslint-disable prettier/prettier */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from '../../../api/axios';
 
 export const fetchProfile = createAsyncThunk('fetchProfile', async () => {
     try {
         const newUser = await axios.get('/service/profile');
-        console.log(axios.defaults.headers['Authorization'])
-        const newData = newUser.data.message[0];
-        console.log('this is from dispatch');
-        console.log(newData);
-        console.log(newUser);
-        return newData;
+        return newUser.data.message[0];
     } catch (error) {
-        console.error('Error fetching profile:', error);
     }
-})
+});
 
 interface ProfileState {
     isLoading: boolean;
@@ -26,7 +23,7 @@ const initialState: ProfileState = {
     isLoading: false,
     data: null,
     isError: false,
-    name: ''
+    name: '',
 };
 const profileSlice = createSlice({
     name: 'profile',
@@ -41,10 +38,9 @@ const profileSlice = createSlice({
             state.data = action.payload;
         });
         builder.addCase(fetchProfile.rejected, (state, action) => {
-            console.log("Error", action.payload);
             state.isError = true;
         });
-    }
-})
+    },
+});
 
-export default profileSlice.reducer
+export default profileSlice.reducer;

@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
@@ -53,9 +49,6 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
         });
         if (data) {
             const followDetail = data.message[0];
-            console.log('this is from following detail???????????????????');
-            console.log(followDetail);
-            console.log(userId);
             setFollowing(followDetail);
         }
     }
@@ -65,34 +58,24 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
         });
         if (data) {
             const followDetail = data.message[0];
-            console.log('this is from follow detail???????????????????');
-            console.log(followDetail);
             setFollower(followDetail);
         }
     }
     async function getUserdata() {
-        const sendData = {
-            userId,
-        };
+
         const newUser = await axios.get('/service/profile', {
             params: sendData,
         });
         if (newUser) {
             const newData = newUser.data.message[0];
-            console.log('the new data is ==============================================');
-            console.log(newData);
             setUserData(newData);
         }
     }
     async function getFollow() {
-        const sendData = {
-            userId,
-        };
+
         const newUser = await axios.post('/follow/checkfollow', sendData);
         if (newUser) {
             const newData = newUser.data.following;
-            console.log(newData);
-
             setFollow(newData);
         }
     }
@@ -107,19 +90,17 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
         if (data.message[0].count) {
             const newCount = data.message[0].count;
             setPostCount(newCount);
+        } else {
+            setPostCount(0)
         }
     }
     useEffect(() => {
         getUserdata();
-        getPostCount();
         getFollow();
         followingUser();
         followerUser();
+        getPostCount();
     }, [userId, follow]);
-    console.log('getfollow', follow);
-    console.log(follower);
-    console.log(following);
-    console.log(userId);
     return (
         <div className={style.main}>
             {userData && (
@@ -132,6 +113,8 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
                             <div className={style.userButton}>
                                 <p className={style.user_name}>{userData.user_name}</p>
                                 <div
+                                    role='button'
+                                    tabIndex={0}
                                     className={style.followButton}
                                     onClick={FollowUser}
                                     onKeyDown={followerUser}
@@ -154,8 +137,9 @@ function OtherUserProfileHeader({ userId }: OtherUserProfileHeaderProps) {
                         </div>
                     </div>
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 

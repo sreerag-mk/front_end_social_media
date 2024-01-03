@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
@@ -23,22 +20,22 @@ interface OtherUserProfileHeaderProps {
 function OtherUserProfileFeed({ userId }: OtherUserProfileHeaderProps) {
     const [post, setPost] = useState<PostType[]>([]);
     const [isPost, setIsPost] = useState(false);
-    const sendData = {
-        page: 1,
-        size: 10,
-        userId,
-    };
-    async function newPosts() {
-        const { data } = await axios.get('/post/userpost', {
-            params: sendData,
-        });
-        const feedDetail = data.message;
-        const isFeed = data.success;
-        setIsPost(isFeed);
-        console.log('=================================================================', feedDetail)
-        setPost(feedDetail);
-    }
+
     useEffect(() => {
+        const sendData = {
+            page: 1,
+            size: 10,
+            userId,
+        };
+        async function newPosts() {
+            const { data } = await axios.get('/post/userpost', {
+                params: sendData,
+            });
+            const feedDetail = data.message;
+            const isFeed = data.success;
+            setIsPost(isFeed);
+            setPost(feedDetail);
+        }
         newPosts();
     }, [userId]);
 

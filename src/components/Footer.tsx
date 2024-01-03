@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 
 import footer from './Footer.module.css'
 

@@ -1,16 +1,14 @@
-
+/* eslint-disable prettier/prettier */
 import { Outlet } from 'react-router-dom';
 import UserHeader from './UserHeader';
 import Footer from './Footer';
-import layoutStyle from './Layout.module.css'
+import layoutStyle from './Layout.module.css';
 import Details from './Details';
 import withAuth from '../HOC/WithAuth';
 import Profile from './Profile';
 
-
-
 function Layout() {
-    const array: Array<string> = ['My Group', 'Friends']
+    const array: Array<string> = ['My Group', 'Friends'];
     return (
         <div className={layoutStyle.main}>
             <div className={layoutStyle.header}>
@@ -18,9 +16,9 @@ function Layout() {
             </div>
             <div className={layoutStyle.body}>
                 <div className={layoutStyle.left}>
-                    {array.map((value) =>
+                    {array.map((value) => (
                         <Details heading={value} key={value} />
-                    )}
+                    ))}
                 </div>
                 <div className={layoutStyle.middle}>
                     <Outlet />
@@ -33,7 +31,7 @@ function Layout() {
                 <Footer />
             </div>
         </div>
-    )
+    );
 }
 
-export default withAuth(Layout)
+export default withAuth(Layout);

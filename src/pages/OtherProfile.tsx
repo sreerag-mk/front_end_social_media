@@ -1,11 +1,8 @@
-
-
+/* eslint-disable prettier/prettier */
+import { useLocation } from 'react-router-dom';
 import OtherUserProfileHeader from '../components/OtherUserProfileHeader';
 import OtherUserProfileFeed from '../components/OtherUserProfileFeed';
-import { useLocation } from 'react-router-dom';
-import style from '../components/OtherProfile.module.css'
-
-
+import style from '../components/OtherProfile.module.css';
 
 function Profile() {
     const { state } = useLocation();
@@ -13,13 +10,11 @@ function Profile() {
     return (
         <div className={style.page}>
             <OtherUserProfileHeader userId={state} />
-            <div className={style.center}></div>
+            <div className={style.center} />
             <OtherUserProfileFeed userId={state} />
 
         </div >
-    )
-
-
+    );
 }
 
-export default Profile
+export default Profile;

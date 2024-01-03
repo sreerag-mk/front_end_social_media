@@ -14,35 +14,27 @@ import Addpost from './pages/Addpost';
 import Explore from './pages/Explore';
 import Comment from './components/Comment';
 
-
-
 function App() {
   return (
-
-    <div className="App" >
+    <div className="App">
       <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/' element={<Layout />}>
-
-
-          <Route path='/' element={<HomePage />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/message' element={<Message />} />
-          <Route path='/photo' element={<Photo />} />
-          <Route path='/settings' element={<Settings />} />
-          <Route path='/search' element={<Search />} />
-          <Route path='/saved' element={<SavedPost />} />
-          <Route path='/addpost' element={<Addpost />} />
-          <Route path='/explore' element={<Explore />} />
-          <Route path='/comment' element={<Comment />} />
-
-
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/message" element={<Message />} />
+          <Route path="/photo" element={<Photo />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/saved" element={<SavedPost />} />
+          <Route path="/addpost" element={<Addpost />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/comment" element={<Comment />} />
         </Route>
       </Routes>
     </div>
   );
 }
-
 
 export default App;

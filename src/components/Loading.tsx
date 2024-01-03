@@ -1,11 +1,12 @@
+/* eslint-disable prettier/prettier */
+import Load from './Loading.module.css';
 
-import Load from './Loading.module.css'
-
-const Loading = () => {
+function Loading() {
     return (
-
-        <div className={Load.main}><span className={Load.loader}></span></div>
-    )
+        <div className={Load.main}>
+            <span className={Load.loader} />
+        </div>
+    );
 }
 
-export default Loading
+export default Loading;

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axios';
@@ -28,8 +25,6 @@ function Profile() {
     const [follower, setFollower] = useState<FollowerType | undefined>();
     const dataState = useAppSelector((state) => state.profile.data);
     const isLoadingState = useAppSelector((state) => state.profile.isLoading);
-    console.log('the state is');
-    console.log(dataState);
     async function followingUser() {
         const { data } = await axios.get('/follow/getfollowing');
         const followDetail = data.message;
@@ -44,11 +39,10 @@ function Profile() {
         dispatch(fetchProfile());
         followingUser();
         followerUser();
-    }, []);
+    }, [dispatch]);
     if (isLoadingState) {
         return <Loading />;
     }
-    console.log('the following is', following);
 
     return (
         <div className={ProfileStyle.main}>

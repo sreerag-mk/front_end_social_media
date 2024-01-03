@@ -1,0 +1,83 @@
+.main {
+    width: 100%;
+    height: 30vh;
+    display: flex;
+}
+
+.profilePicture {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profilePicture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ff4800;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileData {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.profileData2 {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    height: 100px;
+
+}
+
+.user_name {
+    font-weight: bold;
+    padding: 10px;
+}
+
+.userButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userFollow {
+    display: flex;
+    gap: 20px;
+    font-size: 15px;
+    padding: 0px 10px;
+}
+
+.userFollow span {
+    font-weight: bold;
+}
+
+.followButton {
+    padding: 10px;
+    height: 30px;
+    background-color: #ff4800;
+    color: white;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.bio {
+    font-size: 15px;
+    padding: 0px 10px;
+}

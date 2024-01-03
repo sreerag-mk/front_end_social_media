@@ -1,0 +1,12 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    border-radius: 2px;
+
+}
+
+.container {
+    max-width: 1350px;
+    margin: auto;
+}
